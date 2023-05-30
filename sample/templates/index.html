@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<body>
+
+  <head>
+    <link rel="icon" href="https://via.placeholder.com/70x70">
+    <link rel="stylesheet" href="https://andybrewer.github.io/mvp/mvp.css">
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <main>
+    <section>
+      <header>
+        <h2>语料泛化工具</h2>
+      </header>
+
+      <form method="POST" enctype="multipart/form-data">
+        <table>
+          <tr>
+            <td>数据来源：
+              {# <input type="checkbox" name="category" value="全选" checked="{{ }}" />全选 #}
+
+              {% if not sources %}
+              <input type="checkbox" name="category" value="百度知道" checked="true" />百度知道&nbsp
+              <input type="checkbox" name="category" value="360问答" checked="true" />360问答&nbsp
+              <input type="checkbox" name="category" value="搜狗问答" checked="true" />搜狗问答&nbsp
+              <input type="checkbox" name="category" value="百度" />百度&nbsp
+              {% else %}
+
+              {% if '百度知道' in sources %}
+              <input type="checkbox" name="category" value="百度知道" checked="true" />百度知道&nbsp
+              {% else %}
+              <input type="checkbox" name="category" value="百度知道" />百度知道&nbsp
+              {% endif %}
+
+              {% if '360问答' in sources %}
+              <input type="checkbox" name="category" value="360问答" checked="true" />360问答&nbsp
+              {% else %}
+              <input type="checkbox" name="category" value="360问答" />360问答&nbsp
+              {% endif %}
+
+              {% if '搜狗问答' in sources %}
+              <input type="checkbox" name="category" value="搜狗问答" checked="true" />搜狗问答&nbsp
+              {% else %}
+              <input type="checkbox" name="category" value="搜狗问答" />搜狗问答&nbsp
+              {% endif %}
+
+              {% if '百度' in sources %}
+              <input type="checkbox" name="category" value="百度" checked="true" />百度&nbsp
+              {% else %}
+              <input type="checkbox" name="category" value="百度" />百度&nbsp
+              {% endif %}
+
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>爬取页数：
+              <select name="pages" id="pages" style="display:table-row">
+                <option value="1">1</option>
+                <option value="2" selected="selected">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <!-- <input type="text" name='pages' value="{{request.form.pages }}"
+                style="width:80px; height: 20px; margin:5px; display:table-row" placeholder="2"
+                onfocus="style.backgroundColor='#FFF999'" onblur="style.backgroundColor='#FFFFFF'" text-align="center"> -->
+            </td>
+          </tr>
+          <tr>
+            <td>输入问题：
+              <input type="text" name='question' value="{{ request.form.question }}" placeholder="Enter vendor key here"
+                style="width:250px; height: 20px; margin:5px; display:table-row"
+                onfocus="style.backgroundColor='#FFF999'" onblur="style.backgroundColor='#FFFFFF'">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="submit" class="submit-button" name="search" value="搜 索" style="width:120px; height: 40px; background: #1E90FF; cursor: pointer; outline: none;
+                font-family: Microsoft YaHei; color: white; font-size: 14px; ">
+            </td>
+          </tr>
+        </table>
+      </form>
+
+      <header>
+        <h2>泛化结果</h2>
+      </header>
+
+      <form>
+        <table>
+          <div style="height:300px;width:550px;">
+            {% if result_cos %}
+            {% for q in result_cos %}
+            <!-- 左边，中间和右边对齐的文本在同一行上 -->
+            <div style="float: left; text-align:left">{{ q[0] }}</div>
+            <div style="float: right; text-align:right">{{ q[1] }}</div>
+            <br />
+            {% endfor %}
+            {% endif %}
+          </div>
+        </table>
+      </form>
+
+    </section>
+  </main>
+</body>
+
+{% endblock %}
